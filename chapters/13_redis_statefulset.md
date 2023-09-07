@@ -193,11 +193,35 @@ Similar to databases, each redis instance needs its own data store, which should
 Your task is to update the YAML file for the statefulset  with the following changes,
 
   * use volumeClaimTemplate instead of volumes for volume **redis-data**. This will ensure a persistentVolumeClaim per replica/pod. All other volumes remain unchanged.
-  * Provide the storageClass as NFS, a provisioner for which is already been configured
-  * Size of the volume could be 200Mi as its just a key value store used by the instavote app to store the votes.
+  * Use the default storageClass in the cluster, a provisioner for which should have already been configured. What this means is, do not provide an explicit configuration for the storage class.
+  * Size of the volume could be 50Mi as its just a key value store used by the instavote app to store the votes.
   * accessModes should be ReadWriteOnce as the volumes for redis should not be shared between multiple instances.
 
 Update the statefulSet, apply and validate that persistentVolumeClaim and persistentVolume are created for each instance/pod of redis application.
+
+### Solution
+
+To complete this nano project you need to
+  * Remove redis-data volume which is using emptyDir.
+  * Add the volumeClaimTemplates as part of the StatefulSet spec as,
+  
+```
+volumes:
+- name: conf
+  emptyDir: {}
+- name: config-map
+  configMap:
+    name: redis
+volumeClaimTemplates:
+- metadata:
+  name: redis-data
+spec:
+  accessModes: [ "ReadWriteOnce" ]
+  resources:
+    requests:
+      storage: 50Mi
+```
+Complete solution manifest is available at https://gist.github.com/initcron/20fbe6e23ab339a5fb2edf65d429aefd.
 
 ##### Reading List
 
