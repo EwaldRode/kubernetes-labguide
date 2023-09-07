@@ -5,6 +5,11 @@ What will you learn
   * Statefulsets  
   * initContainers
 
+With this lab, you would be re deploying the redis service, this time as a statefulset. Before proceeding, if you alerady have it created as deployment earlier, remove it using,
+
+```
+kubectl delete svc,deploy redis
+```
 
 ## Creating a headless service
 
@@ -204,7 +209,7 @@ Update the statefulSet, apply and validate that persistentVolumeClaim and persis
 To complete this nano project you need to
   * Remove redis-data volume which is using emptyDir.
   * Add the volumeClaimTemplates as part of the StatefulSet spec as,
-  
+
 ```
 volumes:
 - name: conf
