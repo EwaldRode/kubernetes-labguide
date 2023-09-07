@@ -226,7 +226,7 @@ spec:
     requests:
       storage: 50Mi
 ```
-Complete solution manifest is available at https://gist.github.com/initcron/20fbe6e23ab339a5fb2edf65d429aefd.
+Complete (solution manifest is available here)[https://gist.github.com/initcron/20fbe6e23ab339a5fb2edf65d429aefd].
 
 ##### Reading List
 
